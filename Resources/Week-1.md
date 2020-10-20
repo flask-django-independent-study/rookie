@@ -20,13 +20,13 @@ They are simply here to serve you.
 
 [Video](https://www.youtube.com/watch?v=tvRnBbwQwvs&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=2)
 
-[Video][https://www.youtube.com/watch?v=zKI66AuEGkA&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=3]
+[Video][https://www.youtube.com/watch?v=zKI66AuEGkA&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=3)
 
 ## Templates
 
 [Docs](https://flask.palletsprojects.com/en/1.1.x/quickstart/#rendering-templates)
 
-[Video](https://www.youtube.com/watch?v=QnDWIZuWYW0&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=2
+[Video](https://www.youtube.com/watch?v=QnDWIZuWYW0&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=2)
 
 [Video](https://www.youtube.com/watch?v=pJ8V51XJuf0&list=PLXmMXHVSvS-ABlT4k4eS3YPJSnPUozw04&index=1)
 

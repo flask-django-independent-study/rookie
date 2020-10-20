@@ -50,3 +50,9 @@ python3 app.py
 ```
 
 Make sure you're cd'd into your project directory!
+
+### If this assignment is just too easy, here are some stretch challenges you can complete!
+
+  1. Look into creating a form for your RSVP route, so a user can check "yes" or "no" to "RSVP". Handle this response in your route! (If this is tricky, don't worry. We'll be learning about forms and handling different kinds of requests next week)
+
+  2. Add some styling! Right now this is looking pretty boring. Make it your own: add images, colors, backgrounds, whatever you want!

@@ -17,13 +17,13 @@ FDIS Rookie Team is designed to help your backend skills go from zero to 60 in t
 
 ## Learning Objectives
 
-* Use Flask to display different webpage routes.
-* Use Jinja2 to dynamically display web page content.
+* Use Flask to display different webpage routes
+* Use Jinja2 to dynamically display web page content
 * Create JSON and make API calls
-* Create, Read, Update, and Delete entries in a SQL database.
+* Create, Read, Update, and Delete entries in a SQL database
 * Use Flask-Restless to create an API
 * Use Flask-Login to create and authenticate users
-* Use Blueprints and Packages to manage project code.
+* Use Blueprints and Packages to manage project code
 
 ## Schedule
 

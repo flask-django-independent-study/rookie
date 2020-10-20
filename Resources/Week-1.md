@@ -20,7 +20,7 @@ They are simply here to serve you.
 
 [Video](https://www.youtube.com/watch?v=tvRnBbwQwvs&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=2)
 
-[Video][https://www.youtube.com/watch?v=zKI66AuEGkA&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=3)
+[Video](https://www.youtube.com/watch?v=zKI66AuEGkA&list=PLXmMXHVSvS-AjwTOtiW1DXFYTgUlrUmHV&index=3)
 
 ## Templates
 

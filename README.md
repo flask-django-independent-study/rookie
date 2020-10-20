@@ -31,7 +31,7 @@ FDIS Rookie Team is designed to help your backend skills go from zero to 60 in t
 
 Week | Topic | Due
 ---- | ---- | ----
-1 | Servers, Routing, Templating | October 23
+1 | [Servers, Routing, Templating](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-1-Halloween-Party.md) | October 23
 2 | Forms & WTForms | October 30
 3 | API's | November 6
 4 | SQL & SQLAlchemy | November 13

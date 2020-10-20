@@ -1,6 +1,8 @@
 # Flask Django Independent Study
 ### Rookie Team
 
+Flask is not for vodka
+
 ## Description
 
 Flask Django Independent Study (FDIS) serves as a resource for those who want to accelerate their skills and knowledge.

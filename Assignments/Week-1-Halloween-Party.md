@@ -40,7 +40,7 @@ pip3 install -r requirements.txt
 5. Activate your virtual environment:
 
 ```zsh
-source bin/env/activate
+source env/bin/activate
 ```
 
 6. The starting code won't do anything yet, but when you need to run the code, you can run:

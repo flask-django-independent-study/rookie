@@ -9,6 +9,8 @@ like locations on a website.
   2. Serve HTML templates to show content on your webpage!
   3. The basics of Flask syntax, and Jinja2, a templating engine.
 
+#### [Resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-1.md)
+
 #### Once you've looked at the resources in Lessons, come back here to get started!
 
 1. Clone the starting code:

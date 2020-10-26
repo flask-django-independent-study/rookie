@@ -85,3 +85,80 @@ You also need to get the following information from guests. Input type is specif
 3. So, first, let's go ahead and test our form. Run your app, and go to localhost:5000/rsvp. Check out your form, and make sure that you're able to input information in and click "submit". Now, check your url: is it now localhost:5000/guests?
 
 > Just a quick note: if you named your route anything but guests, you're going to need to make sure that the action reflects the correct route otherwise this won't work.
+
+4. So, if you hadn't noticed, our guests route is still only showing us a hardcoded list. This is because we haven't done anything with the input data yet. Let's change that.
+
+First, you should just get rid of all of the hard-coded information in your list of guests. We won't be needing that. You'll want to still have a list, though, but we're just going to initialize it to be empty. You all know what this looks like, but just to be clear, your guest list looks like this now:
+
+```python
+guests = []
+```
+
+5. Now, let's access the information from our form. Because our 'guests' route now needs to accept a POST request, we need to make sure we add our methods list:
+
+```python
+@app.route('/guests', methods=['GET', 'POST'])
+```
+
+You'll notice that unlike my example above, I specified 'GET' and 'POST'. This is important: if the request sent to the guests route is a 'GET' request, we still want to show the user the information in that route. If the request is a POST, though, we'll need to add a new guest to the list. I'll outline this logic below in pseudocode:
+
+```python
+@app.route('/guests', methods=['GET', 'POST'])
+def guests():
+
+  if request is 'GET':
+    show guest list
+  else:
+    add new guest to list
+    then, show the updated list
+```
+
+### Important:
+
+Flask gives us a ton of handy tools for accessing requests as well as the data that's sent with them. It actually gives us a **request** object to work with. At the top of your app.py file, I want you to go ahead and import request from flask. Your imports should look like this:
+
+```python
+from flask import Flask, render_template, request
+```
+
+We're going to use this object to access the data sent in the request from our form (client) as well as to figure out what kind of request we're dealing with.
+
+6. Now, we need to do something with our form data (I feel like I've said this before).
+
+#### request.args & request.form
+
+We're going to be using the request object that Flask gives us to access the information sent in the body of the request. To do this, the request object has two different properties: args and form. The only difference between the two are what kind of request they work with. Request.args only works to obtain data from GET requests, and request.form only works to obtain the data from POST requests.
+
+Can you guess which one we'll be using?
+
+Hell yeah! We're going to be using "request.form" to access our data.
+
+You can print out request.form in your route to see what the data you're sent looks like. You may see something weird called "ImmutableMultiDict" print out. We're not going to get too deep into this right now. Basically, this is a kind of dictionary that we can access two different ways:
+
+request.form['keyname']
+
+OR (and slightly better)
+
+request.form.get('keyname')
+
+The latter method is slightly better, because it doesn't make any assumptions. Using the bracket notation indicates that that key you're looking to access WILL be there, and so it will throw an error if the key doesn't happen to be there (remember how we made the plus one optional?). Using the .get() method will return "None" if the key you're looking for doesn't exist rather than throwing errors. This makes debugging so much easier.
+
+In your guests route, you're going to want to access all of the information that we had our user give us. To do this, you're going to access the **name** attribute of the form using request.form.get('name'). This will return the value that the user input.
+
+I'll give you the first one, see if you can do the rest:
+
+```python
+@app.route('/guests', methods=['GET', 'POST'])
+def guests():
+  if request.method == 'POST':
+    # We need to check if the method is post, remember, so that we handle the data from the form only in that instance. If we try to access form data on a "GET" request, we'll get errors.
+    guest_name = request.form.get('name')
+    guest_email = # TODO: fill this in
+    guest_plus_one = #TODO: fill this in
+    # TODO: get the rest of the information
+    return render_template('guests.html')
+```
+
+You're going to want to return the template at the end, too. But wait, we're missing something.
+
+7. 

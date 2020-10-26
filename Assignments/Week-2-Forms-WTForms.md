@@ -161,4 +161,102 @@ def guests():
 
 You're going to want to return the template at the end, too. But wait, we're missing something.
 
-7. 
+7. We probably want to pass the guests to our template. But, we also need to add these new guests to our guests list. We need to decide how we want to show all of the information, too. Maybe it would be nice to have a guest object with these attributes to more easily access data? Let's do that.
+
+Create a file called "guests.py". In your file, define a class Guest, and initialize the following properties. Take these as parameters to `__init__()`:
+
+    1. name
+    2. email
+    3. plus_one
+    4. phone
+    5. costume
+
+    It should look like this:
+
+    ```python
+    class Guest:
+      """Define class Guest."""
+
+      def __init__(self, name, email, plus_one, phone, costume):
+        self.name = name
+        self.email = email
+        self.plus_one = plus_one
+        self.phone = phone
+        self.costume = costume
+    ```
+
+8. Go back to app.py and make sure that you import your new class at the top:
+
+```python
+from guests import Guest
+```
+
+Now, in your 'guests' route, underneath all of the variables you just created (name, email, etc.) I want you to instantiate your class into a new object called guest. Give it all of the properties it needs.
+
+```python
+@app.route('/guests', methods=['GET', 'POST'])
+def guests():
+  if request.method == 'POST':
+    guest_name = request.form.get('name')
+    guest_email = # TODO: fill this in
+    guest_plus_one = #TODO: fill this in
+    # TODO: get the rest of the information
+    guest = Guest(guest_name, guest_email, guest_plus_one, ...)
+    return render_template('guests.html')
+```
+
+Then, push the new guest object onto your guests list.
+
+```python
+guests.append(guest)
+```
+
+Lastly, we need to go ahead and make sure this data gets back to our client so we can show our users who's going to our party. Make sure you pass guests in to render_template:
+
+```python
+return render_template('guests.html', guests=guests)
+```
+
+So, now we're passing a list of objects to our client. We can really easily work with this.
+
+9. Your template already goes through guests and shows their name. You can make this exciting in all kinds of ways by revealing new information. I think it would be really helpful to also show the guests' plus ones, so that we can keep track of everyone who will be at our party.
+
+In your template, next to where you show your individual guest's name, add "is bringing" and their plus one.
+
+You can access properties of an object using dot notation. Your Jinja for loop should look something like this:
+
+```html
+<ul>
+  {% for guest in guests %}
+    <li>{{ guest.name }} is bringing {{ guest.plus_one }}</li>
+  {% endfor %}
+</ul>
+```
+
+**Stretch Challenge**: Show some other fun information, too! Make it exciting! Maybe, if a condition is met, the guest's costume is revealed as well!
+
+10. Whoah, you're killing it! You're working with forms, accessing the data, and using it to create an object that you can then pass back to your client.
+
+### Stretch Challenges:
+
+1. We've included hella information about WTForms in the resources. Check these out and see if you can *refactor to use WTForms*.
+
+2. Add more routes, with more forms to your project. Some forms you could have:
+
+  - A submission form for a contest
+  - A potluck form, where the user inputs what they can bring to the party
+  - A form that must be validated for the user to be able to even RSVP (maybe they need to solve a puzzle, or answer a coding problem correctly to be able to even see the RSVP form).
+
+3. Add more input validation. Some examples could be:
+
+  - The user's name must be more than four characters
+  - Their plus one's name must also be more than four characters
+  - Their plus one must be present on a list for them to add them
+
+4. Add some more styling, and make sure your users are going to be excited to RSVP to your party!
+
+#### And as always,
+
+If you find typos, raise an issue here for this repository. If you have questions, check out office hours, or Slack Sid or Starlight.
+
+Happy Halloween! 

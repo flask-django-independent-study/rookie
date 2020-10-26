@@ -34,7 +34,7 @@ Click on the week's topic for your assignment.
 Week | Topic | Due
 ---- | ---- | ----
 1 | [Servers, Routing, Templating](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-1-Halloween-Party.md) | October 23
-2 | [Forms & WTForms](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-2.md) | October 30
+2 | [Forms & WTForms](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-2-Forms-WTForms.md) | October 30
 3 | API's | November 6
 4 | SQL & SQLAlchemy | November 13
 5 | Building a REST API | Novemeber 20

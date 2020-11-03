@@ -17,13 +17,13 @@ If you have Postman, you're good! If Postman is the guy that delivers your mail,
 
 Once you have the desktop app open, you should see a page like this:
 
-![Postman Screenshot](./assets/postman_screenshot.png)
+![Postman Screenshot](/assets/postman_screenshot.png)
 
 Now, in the url field, you're going to paste this url: http://ipwhois.app/json/8.8.4.4 and change the request method on the left to POST.
 
 Hit send to send the request. What do you see? You should see something like this:
 
-![IP Whois return data](./assets/return_data.png)
+![IP Whois return data](/assets/return_data.png)
 
 Congratulations! You just made your FIRST request to an API endpoint! This one is giving you location information for a test IP address using the IP Who Is API.
 
@@ -33,7 +33,7 @@ Now, you're going to go [here](https://calendarific.com/?ref=public-apis). We're
 
 Scroll down and sign up for the free plan. Once you've signed in, you'll see a page like this:
 
-![Calendarific dashboard screenshot](./assets/calendarific_dash.png)
+![Calendarific dashboard screenshot](/assets/calendarific_dash.png)
 
 I have my API key hidden because those are SECRET! That means we also need to learn how to handle secret files in our applications. You're really learning a lot of good stuff today.
 
@@ -129,7 +129,7 @@ from pprint import PrettyPrinter
 
 Now, let's work on our about page. We're going to need to make a request. I'll get you started with a screenshot from a different project. I want you to take this information and use it to make a request to our current URL:
 
-![Example api request to url in python](./assets/example_req_route.png)
+![Example api request to url in python](/assets/example_req_route.png)
 
 In the above example, we are accessing data from a form. Since you aren't accessing data from a form in this route, we probably don't need that, right?
 

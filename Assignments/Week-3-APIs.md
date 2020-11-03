@@ -187,3 +187,5 @@ You have now been introduced to APIs and making calls. You've used two separate 
 1. Make some more requests: think of other routes you could build or other information you could show your users. What else might be helpful? Should users be able to RSVP to events that correspond with holidays?
 
 2. Make it pretty! This is always a stretch challenge because while a real working application is the most important, we want our portfolio projects to look great, too.
+
+3. Refactor the application to make some more sense! What if the holidays show up on the homepage, and the about page leads to some details about each holiday? 🤔

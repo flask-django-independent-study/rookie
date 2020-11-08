@@ -66,7 +66,7 @@ What you should see is a list of all of the Holidays in the US for 2019. Super c
 Go to your terminal and clone the starting code. We're still building on the same project, but I added navigation and some super basic styles. **For better practice, compare my code to yours and type in the new stuff. I really only changed up the templates. This will help you remember more of what you're doing than copy and pasting**.
 
 ```zsh
-git clone https://github.com/flask-django-independent-study/week-3-rookie-halloween-party
+git clone https://github.com/flask-django-independent-study/rookie-events-week-3
 ```
 
 Don't forget to set up and activate your virtual environment and install requirements!

@@ -127,7 +127,17 @@ Well, the response is going to return JSON. However, it's going to be a bit ugly
 from pprint import PrettyPrinter
 ```
 
-Now, let's work on our about page. We're going to need to make a request. I'll get you started with a screenshot from a different project. I want you to take this information and use it to make a request to our current URL:
+Now, let's work on our about page. We're going to need to make a request.
+
+Before we get started, let's add one more import to the top of our project:
+
+```python
+import requests
+```
+
+This is a module built into python that enables HTTP requests. This is a simple way to make an HTTP request to an external url.
+
+I'll get you started with a screenshot from a different project. I want you to take this information and use it to make a request to our current URL:
 
 *HINT: Remember, we're getting all of the holidays for the current MONTH and YEAR for our current country.*
 

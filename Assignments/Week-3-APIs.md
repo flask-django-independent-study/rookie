@@ -129,6 +129,8 @@ from pprint import PrettyPrinter
 
 Now, let's work on our about page. We're going to need to make a request. I'll get you started with a screenshot from a different project. I want you to take this information and use it to make a request to our current URL:
 
+*HINT: Remember, we're getting all of the holidays for the current MONTH and YEAR for our current country.*
+
 ![Example api request to url in python](/assets/example_req_route.png)
 
 In the above example, we are accessing data from a form. Since you aren't accessing data from a form in this route, we probably don't need that, right?

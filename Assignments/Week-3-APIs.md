@@ -129,7 +129,21 @@ from pprint import PrettyPrinter
 
 Now, let's work on our about page. We're going to need to make a request.
 
-Before we get started, let's add one more import to the top of our project:
+Before we get started, let's add one more package to our project:
+
+In your terminal, in your project directory (and with your virtual environment activated!):
+
+```zsh
+pip install requests
+```
+
+Then,
+
+```zsh
+freeze > requirements.txt
+```
+
+At the top of your app.py file:
 
 ```python
 import requests

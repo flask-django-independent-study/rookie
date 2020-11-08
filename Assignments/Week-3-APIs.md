@@ -127,6 +127,14 @@ Well, the response is going to return JSON. However, it's going to be a bit ugly
 from pprint import PrettyPrinter
 ```
 
+Then, where you define your global variables, add the following line:
+
+```python
+# This initializes our PrettyPrinter object:
+
+pp = PrettyPrinter(indent=4)
+```
+
 Now, let's work on our about page. We're going to need to make a request.
 
 Before we get started, let's add one more package to our project:

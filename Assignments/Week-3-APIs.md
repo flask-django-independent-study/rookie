@@ -53,6 +53,18 @@ Inside your .env file, add the following line:
 API_KEY=yourapikeyhere
 ```
 
+Lastly, go to your terminal and add another package to your project so that we can access our .env file:
+
+```zsh
+pip install python-dotenv
+```
+
+Then,
+
+```zsh
+freeze > requirements.txt
+```
+
 Remember, your API key can be found in your account dashboard on calendarific.
 
 Now that you have your API key, let's test a call in Postman. In the Postman URL field, make a GET request to this URL:
@@ -90,7 +102,7 @@ def about_page():
     # Sometimes, a cleaner way to pass variables to templates is to create a
     # context dictionary, and then pass the data in by dictionary key
 
-    url = 'https://calendarific.com/api/v2'
+    url = 'https://calendarific.com/api/v2/holidays'
 
     context = {
         "date": "10/31/2020",
@@ -195,7 +207,7 @@ def about_page():
     # TODO: access name, date, and description for all holidays this month. HINT: you likely need to loop through the holidays in the data
 
     holidays = []
-    # HINT: perhaps holidays shouldn't be an array, but something that can store key-value pairs?
+    # HINT: in holidays, we'll probably need a way to store key-value pairs.
     # Think about the format we receive the response in
     dates = # TODO: access data from your response
     descriptions = # TODO: access data from your response
@@ -212,9 +224,29 @@ def about_page():
 ```
 Now, go into your about template, and refactor it so that we can show the users this data! Feel free to use a list, headings and paragraphs, whatever you feel looks best!
 
+*If you got stuck on how to set up your data to pass it to your template, I've provided a helper function below.*
+
+```python
+def get_holiday_data(result):
+    """Loop through our JSON results and get only the information we need."""
+    data = []
+    for holiday in result["response"]["holidays"]:
+        new_holiday = {
+            "name": holiday["name"],
+            "description": holiday["description"],
+            "date": holiday["date"]["iso"],
+        }
+        data.append(new_holiday)
+    return data
+```
+
+*You can add the above helper function to app.py by your global variable declarations. You can then call this function on result_json in our /about view function to receive an array you can loop through from your template. This function pulls out the information we need from our JSON data from the Calendarific API call and stores key value pairs we want to keep track of in dictionaries. We then return data, which is a list of these dictionaries. Alternatively, we could just loop through our result_json in our view function, but I found this to be cleaner and easier to maintain later on*
+
 ### Congratulations!
 
-You have now been introduced to APIs and making calls. You've used two separate APIs to get data and show it to your users. You've learned the basics of Postman, an extremely helpful application that helps you test API endpoints, and you've gotten more comfortable (hopefully) with reading API documentation and extrapolating data!
+You should have an about page now that looks something like [this](/assets/about_page_screenshot.png)!
+
+You have now been introduced to APIs and making calls. You've used two separate APIs to get data and show it to your users. You've learned the basics of Postman, an extremely helpful application that helps you test API endpoints, and you've gotten more comfortable with reading documentation and extrapolating data!
 
 #### Stretch Challenges:
 

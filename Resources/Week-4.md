@@ -37,3 +37,9 @@ I want to point out that he mentions that NoSQL databases use Object Relational 
 You'll be learning about MongoDB if you're in Web1.1 this term, and will have a much better idea of the differences between the two types of database systems both in concept and practice.
 
 If you aren't in Web1.1 or want to learn about MongoDB ahead of time, **Slack me** and I'll look into getting a short Mongo tutorial out if enough folks are interested!
+
+## Relationships (Not the human kind)
+
+[Three Types of Relationships in Database Design](https://database.guide/the-3-types-of-relationships-in-database-design/)
+
+[A different way of visualizing with some different information](https://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561)

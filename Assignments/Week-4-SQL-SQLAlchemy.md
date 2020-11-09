@@ -44,7 +44,15 @@ It's similar to a class, but it's a bit special, because it inherits from a clas
 
 Notice that each attribute we initialize instantiates an object of the Column class that we can access through our database object. What these attributes are defining are *columns* of our SQL database *tables*. This is a lot of new terminology, and I'll be linking several resources in case you can't keep things straight. The good news is that with SQLAlchemy, a lot of this is abstracted away and you don't really need to worry about the specifics when we're coding, it's just good for you to understand what's going on behind the scenes.
 
-When we instantiate the Column object, it looks like we also provide some parameters. For example, our id Column has a parameter called "primary_key" that's set to True. This means that this is the *primary* unique identifier for this object. I'll describe this in more detail later, and you'll also be able to read more about primary and foreign keys in your resources.
+When we instantiate the Column object, it looks like we also provide some parameters. For example, our id Column has a parameter called "primary_key" that's set to True. This means that this is the *primary* unique identifier for this object. In order to really explain what this means, I'm going to go on a slight side tangent:
+
+One of the key advantages to using a SQL database versus a NoSQL database is the ability to create *relationships* between tables. To illustrate:
+
+> In this application you will have two tables that you'll be working with: a Guest table and an Event table. There is a relationship between the two, right? Guests RSVP to Events, and Events likely want to track how many and which guests will be attending. This would be useful in a production application for several reasons: the hosts could contact guests, add them to email lists, and know what kinds of events they prefer, for example. There are many more uses for this, but for now let's focus on our use case. There are a few key kinds of relationships that you can create between records of any database. I'll link a resource describing these in more detail later, but conceptually they're simple: you have One-to-Many relationships, One-to-One relationships, and Many-to-Many relationships. Can you guess which kind of relationship our Guests and Events will have?
+
+It looks like we'll be having a Many-to-Many relationship between our guests and events, right? Many guests will attend an event, and a single guest can RSVP to many events! So, now to get back to primary keys, we're going to need a way to *reference* events that guests are attending and guests that are attending events. This is what primary keys do for us. Aside from ensuring that even if we have multiple guests named John Smith we have a way to query for the *correct* John Smith, primary keys enable us to link tables together through back referencing ids that belong to related tables.
+
+If this all sounds like a lot, don't worry. You'll understand in more detail once we're done coding. If you ever get stuck, don't forget: we're linking lots of resources for you and there's no shame in Googling anything additional or asking questions.
 
 The other parameters that we have to provide are our *data types*. Most of these should look familiar: integers, strings, and booleans. These are also objects that SQLAlchemy provides in order to abstract away the nitty-gritty SQL data types that can be confusing at first, and calls them things we understand as Pythonic.
 
@@ -52,7 +60,7 @@ We're going to be using models like this to represent tables in our database. Bu
 
 6. I've included a file called config.py in your project. This accesses important environment variables from our .env file that we created last week, and stores them in another special class called Config. I'll talk more about configuration later on in the course when we go over using blueprints & packages.
 
-7. You're going to need to add something to your .env file, since mine obviously doesn't get pushed to GitHub. While our SQLite URI isn't secret, we're going to start using best practices for setup right off the bat. For this reason, we're going to hide our database URI environment variable and then access it from our Config file.
+7. You're going to need to add something to your .env file, since I'm following best practices, and not pushing mine to Github. While our SQLite URI isn't secret, we're going to start using best practices for setup right off the bat. Production database URIs and URLs will contain information you *don't* want shared. For this reason, we're going to hide our database URI environment variable and then access it from our Config file.
 
 ```python
 SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
@@ -60,7 +68,7 @@ SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
 
 This statement sets the database URI (the address of the database we're using) to a sqlite (testing) database, and we told it to create it at "database.db". This is an important environment variable that will tell SQLAlchemy where to insert and query for things. For now, database.db is going to be our database.
 
-8. You'll notice now at the top of app.py there is a line that looks like this:
+8. You'll notice now at the top of app.py there is a TODO. We need to add this line:
 
 ```python
 app.config.from_object(Config)
@@ -74,7 +82,7 @@ What we've done here is moved our API_KEY variable into our Config file, and now
 from flask_sqlalchemy import SQLAlchemy
 ```
 
-8. In your app.py file, make sure you follow the TODOs to initialize your database. This line should look something like:
+8. In your app.py file, make sure you follow the TODOs to initialize your database. This line should look like:
 
 ```python
 db = SQLAlchemy(app)
@@ -166,7 +174,7 @@ if __name__ == "__main__":
 
 15. There are a few different things we're going to do with our new found database powers. I'm going to list them below so that you know where we're going with this application. I'm going to also include a demo video in your resources so that if you get stuck or aren't clear on our end goal, you can reference this.
 
-    1. We want to make sure that our guests are stored in our database, and not just in memory.
+    1. We want to make sure that our guests are stored in our database, and not just in memory (in a variable, as they are now).
     2. I want us to be able to create events, and store those in a database as well. We'll be displaying our events on our homepage for users to see.
     3. After that, we're going to have an RSVP form for each event in our database, and keep track of which guests are going to which event. This means that we're going to have to dive into relationships, which are arguably the most important part of SQL databases.
     4. I want users to be able to click an event on the homepage and access the RSVP form for it. There are lots of stretch challenges that could be involved in this (like creating a **modal** to display the form on the homepage) but for now, we'll just make events link to the RSVP page.
@@ -176,11 +184,11 @@ if __name__ == "__main__":
 
     That's a lot of work to do, so let's get started!
 
-16. There are a lot of TODOs in our main/routes.py file. Let's get started. First, though, I think we should pay models.py a visit.
+16. There are a lot of TODOs in our main/routes.py file. Let's get started. First, though, I think we should create a file called models.py within our event_app folder.
 
-In models.py, I want you to write two models using the example above. I'll give you the code snippets you'll need below if you need help, but try this on your own before comparing to mine so that you can practice thinking through these things and looking things up.
+In models.py, I want you to write two models using the example in events_app/example.py. I'll give you the code snippets you'll need below if you need help, but try this on your own before comparing to mine so that you can practice thinking through these things and looking things up.
 
-Our Guest model is going to inherit from db.Model. This means that you'll need to add an import statement at the top of your file so that we can access the database object that we created as db. *Don't forget your docstrings*!
+Our Guest model is going to inherit from db.Model. This means that you'll need to add an import statement at the top of your file so that we can access the database object that we created as db. *Don't forget your docstrings at the top of every file*!
 
 ```python
 from from events_app import db
@@ -196,9 +204,9 @@ Our Guest model needs the following attributes:
   5. phone: this one is a bit weird. We don't really have a datatype for a phone number. But, since we aren't doing much with this data yet, let's just make it a string for now. It doesn't need to be more than 10-15 characters I believe (depending on the country you're in)
   6. events attending will look like this: events_attending = db.relationship("Event", secondary="guest_event_link")
 
-  Events attending looks weird, right? This is because it defines a *relationship*. The biggest benefit to SQL databases versus No SQL databases is their ability to maintain *relationships* between different tables. Large, data-driven applications often use SQL databases because of this. No SQL databases like Mongo can have collections that reference each other: but it gets a bit tricky to keep track because No SQL databases are much less structured.
+  Events attending looks weird, right? This is because it defines a *relationship*. The biggest benefit to SQL databases versus No SQL databases is their ability to maintain *relationships* between different tables. Large, data-driven applications often use SQL databases because of this. No SQL databases like Mongo can have collections that reference each other: but it gets a bit tricky to keep track of things because No SQL databases are much less structured.
 
-  Because an event has many guests, and guests can RSVP to many events, we're going to have what is called a many-to-many relationship between the two. This means we're going to have to also have a third table that we won't do much with but that SQL needs to track out data. I'll help you write this because writing joining tables is tricky, but pay attention to the fields I add, and feel free to ask questions if I leave out any important information about what this is doing behind the scenes. I'll make sure to link lots of resources this week as well so that you can read more!
+  Because an event has many guests, and guests can RSVP to many events, we're going to have what is called a many-to-many relationship between the two (see further explanation at the top if you don't remember what this means). This means we're going to have to also have a third table that we won't do much with but that SQL needs to track our data, called a **joining table**. I'll help you write this because writing joining tables is tricky, but pay attention to the fields I add, and feel free to ask questions if I leave out any important information about what this is doing behind the scenes. I'll make sure to link lots of resources this week as well so that you can read more!
 
 Now, let's work on writing out Event model. None of the following attributes will be nullable.
 
@@ -212,7 +220,7 @@ Now, let's work on writing out Event model. None of the following attributes wil
 
 Great! Now you've got two database models. But we aren't done yet!
 
-17. Let's work on putting together our joining table. It's going to look like this:
+17. Let's work on putting together our **joining table**. It's going to look like this:
 
 ```python
 class GuestEventLink(db.Model):
@@ -237,9 +245,9 @@ Third, we're accessing our guest id and our event id as our *ForeignKey*. This t
 
 Lastly, we also have a db.relationship field for each table we're connected with. This is referencing the specific tables, and the "cascade" parameter is telling it that if we delete an event, for example, we also need to delete all references to the event from the guests that were attending. This avoids weird errors later if we try to access events from guests and those events no longer exist.
 
-18. *Spoiler* Below is the code from my models file, in case you run into any issues or just want to compare what you came up with to the way I wrote these. Remember: before we do anything else, every time you touch this file you're going to need to delete your database.db file and run your app again.
+18. *Spoiler* Below is the code from my models file, in case you run into any issues or just want to compare what you came up with to the way I wrote these. Remember: before we do anything else, like every time you touch this file, you're going to need to delete your database.db file and run your app again.
 
-I've included a `__repr__` method in mine. This defines what is returned if we print out or otherwise access objects instantiated from these. This is helpful when you try to print things - especially during debugging. If you don't have this, printing these objects will return a strange object that looks something like <This>.
+I've included a `__repr__` method in mine. This defines what is returned if we print out objects based on these classes. This is helpful during debugging. If you don't have this, printing these objects will return a strange object that looks something like [<This>] and doesn't show much useful information.
 
 ```python
 """Create database models to represent tables."""
@@ -343,7 +351,7 @@ I'm going to let you go and work on completing the TODOs in the starting code no
 
 ### Wrap Up:
 
-You've just written your first CRUD application. CRUD is an abbreviation that you'll be seeing often, and it refers being able to Create, Read, Update, and Delete information in your database. As I'm sure you can guess, these are all database operations that any application leveraging a database will likely need to use a *lot*. Now you know how to write all of these applications for a SQL database using an ORM! 
+You've just written your first CRUD application. CRUD is an abbreviation that you'll be seeing often, and it refers being able to Create, Read, Update, and Delete information in your database. As I'm sure you can guess, these are all database operations that any application leveraging a database will likely need to use a *lot*. Now you know how to write all of these applications for a SQL database using an ORM!
 
 ### Stretch Challenges:
 

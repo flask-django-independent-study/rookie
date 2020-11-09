@@ -341,6 +341,10 @@ Just that simple! We love ORMs.
 
 I'm going to let you go and work on completing the TODOs in the starting code now. If you have questions or get stuck, check out your resources. I've included a demo video that should help you understand where we're going with this. I've also done most of the templating and styling for you to save you some time. Feel free to make these unique and make improvements where you see opportunities to!
 
+### Wrap Up:
+
+You've just written your first CRUD application. CRUD is an abbreviation that you'll be seeing often, and it refers being able to Create, Read, Update, and Delete information in your database. As I'm sure you can guess, these are all database operations that any application leveraging a database will likely need to use a *lot*. Now you know how to write all of these applications for a SQL database using an ORM! 
+
 ### Stretch Challenges:
 
 1. Our delete route kind of requires us to click a delete button. I'm lazy, and I don't like this. I feel like when the current date is past the date that the event occurred, this event should be automatically deleted. Add an if statement to your delete route to make this happen!

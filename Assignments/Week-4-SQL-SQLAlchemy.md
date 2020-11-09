@@ -42,7 +42,7 @@ pip3 install -r requirements.txt
 
 It's similar to a class, but it's a bit special, because it inherits from a class that we have access to through SQLAlchemy. You'll notice that we don't need to define an `__init__()`, and that instead of initializing *properties* we're initializing *attributes*. There are some other special things about this class, too.
 
-Notice that each attribute we initialize instantiates an object of the Column class that we can access through our database object. What these attributes are defining are *columns* of our SQL database *tables*. This is a lot of new terminology, and I'll be linking several resources in case you can't keep things straight. The good news is that with SQLAlchemy, a lot of this is abstracted away and you don't really need to worry about the specifics when we're coding, it's just good for you to understand what's going on behind the scenes.
+Notice that each attribute we initialize instantiates an object of the Column class that we can access through our database object. What these attributes are defining are *columns* of our SQL database *tables*. This is a lot of new terminology, and I'll be linking several [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-4.md) in case you can't keep things straight. The good news is that with SQLAlchemy, a lot of this is abstracted away and you don't really need to worry about the specifics when we're coding, it's just good for you to understand what's going on behind the scenes.
 
 When we instantiate the Column object, it looks like we also provide some parameters. For example, our id Column has a parameter called "primary_key" that's set to True. This means that this is the *primary* unique identifier for this object. In order to really explain what this means, I'm going to go on a slight side tangent:
 
@@ -52,7 +52,7 @@ One of the key advantages to using a SQL database versus a NoSQL database is the
 
 It looks like we'll be having a Many-to-Many relationship between our guests and events, right? Many guests will attend an event, and a single guest can RSVP to many events! So, now to get back to primary keys, we're going to need a way to *reference* events that guests are attending and guests that are attending events. This is what primary keys do for us. Aside from ensuring that even if we have multiple guests named John Smith we have a way to query for the *correct* John Smith, primary keys enable us to link tables together through back referencing ids that belong to related tables.
 
-If this all sounds like a lot, don't worry. You'll understand in more detail once we're done coding. If you ever get stuck, don't forget: we're linking lots of resources for you and there's no shame in Googling anything additional or asking questions.
+If this all sounds like a lot, don't worry. You'll understand in more detail once we're done coding. If you ever get stuck, don't forget: we're linking lots of [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-4.md) for you and there's no shame in Googling anything additional or asking questions.
 
 The other parameters that we have to provide are our *data types*. Most of these should look familiar: integers, strings, and booleans. These are also objects that SQLAlchemy provides in order to abstract away the nitty-gritty SQL data types that can be confusing at first, and calls them things we understand as Pythonic.
 
@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
 **Don't forget: every time we change our database models we will STILL need to delete our database.db file before re-running our app. If you start running into issues where you don't think your insert or delete statements are working, and you know you've made some changes to your models, delete your database.db file and let your app recreate it for you before further debugging.**
 
-15. There are a few different things we're going to do with our new found database powers. I'm going to list them below so that you know where we're going with this application. I'm going to also include a demo video in your resources so that if you get stuck or aren't clear on our end goal, you can reference this.
+15. There are a few different things we're going to do with our new found database powers. I'm going to list them below so that you know where we're going with this application. I'm going to also include a demo video in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-4.md) so that if you get stuck or aren't clear on our end goal, you can reference this.
 
     1. We want to make sure that our guests are stored in our database, and not just in memory (in a variable, as they are now).
     2. I want us to be able to create events, and store those in a database as well. We'll be displaying our events on our homepage for users to see.
@@ -206,7 +206,7 @@ Our Guest model needs the following attributes:
 
   Events attending looks weird, right? This is because it defines a *relationship*. The biggest benefit to SQL databases versus No SQL databases is their ability to maintain *relationships* between different tables. Large, data-driven applications often use SQL databases because of this. No SQL databases like Mongo can have collections that reference each other: but it gets a bit tricky to keep track of things because No SQL databases are much less structured.
 
-  Because an event has many guests, and guests can RSVP to many events, we're going to have what is called a many-to-many relationship between the two (see further explanation at the top if you don't remember what this means). This means we're going to have to also have a third table that we won't do much with but that SQL needs to track our data, called a **joining table**. I'll help you write this because writing joining tables is tricky, but pay attention to the fields I add, and feel free to ask questions if I leave out any important information about what this is doing behind the scenes. I'll make sure to link lots of resources this week as well so that you can read more!
+  Because an event has many guests, and guests can RSVP to many events, we're going to have what is called a many-to-many relationship between the two (see further explanation at the top if you don't remember what this means). This means we're going to have to also have a third table that we won't do much with but that SQL needs to track our data, called a **joining table**. I'll help you write this because writing joining tables is tricky, but pay attention to the fields I add, and feel free to ask questions if I leave out any important information about what this is doing behind the scenes. I'll make sure to link lots of [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-4.md) this week as well so that you can read more!
 
 Now, let's work on writing out Event model. None of the following attributes will be nullable.
 
@@ -347,7 +347,7 @@ db.session.commit()
 
 Just that simple! We love ORMs.
 
-I'm going to let you go and work on completing the TODOs in the starting code now. If you have questions or get stuck, check out your resources. I've included a demo video that should help you understand where we're going with this. I've also done most of the templating and styling for you to save you some time. Feel free to make these unique and make improvements where you see opportunities to!
+I'm going to let you go and work on completing the TODOs in the starting code now. If you have questions or get stuck, check out your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-4.md). I've included a demo video that should help you understand where we're going with this. I've also done most of the templating and styling for you to save you some time. Feel free to make these unique and make improvements where you see opportunities to!
 
 ### Wrap Up:
 

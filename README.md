@@ -36,7 +36,7 @@ Week | Topic | Due
 1 | [Servers, Routing, Templating](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-1-Halloween-Party.md) | October 23
 2 | [Forms & WTForms](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-2-Forms-WTForms.md) | October 30
 3 | [API's](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-3-APIs.md) | November 6
-4 | SQL & SQLAlchemy | November 13
+4 | [SQL & SQLAlchemy](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-4-SQL-SQLAlchemy.md) | November 13
 5 | Building a REST API | Novemeber 20
 6 | Login & Authentication | Novemeber 27
 7 | Blueprints & Packages | December 4

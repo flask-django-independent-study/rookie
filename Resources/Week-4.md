@@ -17,6 +17,7 @@ Here's an [additional demo video](https://drive.google.com/file/d/1WFSjq_at4QgNK
 ## SQLAlchemy
 
 [Official SQLAlchemy Docs](https://www.sqlalchemy.org)
+
 [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 
 Here is a good video by Pretty Printed on connecting to a SQLite database using SQLAlchemy. One thing I want to point out is that this video is quite old. SQLite3 is a C library and is built into Python and we didn't need to install it separately like he does. If you run into issues with connecting to SQLite out of the box, send me a message and we can troubleshoot.

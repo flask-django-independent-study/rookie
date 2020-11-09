@@ -22,7 +22,13 @@ If you're interested in understanding more about *which* production SQL database
 git clone https://github.com/flask-django-independent-study/rookie-events-week-4
 ```
 
-2. Set up your virtual environment! You all should be good on this, but if you have questions, check online for resources OR check out the Rookie Week One assignment for refresher!
+You're going to notice the file structure is a bit different this week - and that there may be some new things that you don't totally understand (like the routes being @main.route, for example).
+
+This file structure is due to the fact that to avoid circular import issues, I split the starting code up into *packages* - and I threw in a *blueprint* so that Flask knew where to find our routes. I'll mention this a few times throughout this assignment, but we'll be learning more about blueprints and packages in a couple of weeks. For now, don't worry too much about this new structure.
+
+If you **DO** want to learn more about what I'm doing and you just can't wait, check out the [Varsity week one assignment](https://github.com/flask-django-independent-study/varsity/blob/master/Assignments/Week-1.md)!
+
+2. Set up your virtual environment! You all should be good on this, but if you have questions, check online for resources OR check out the [Rookie Week One assignment](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-1-Halloween-Party.md) for a refresher!
 
 3. Install the requirements. This week, that's going to include Flask, SQLAlchemy, and our existing requirements from last week.
 
@@ -30,7 +36,7 @@ git clone https://github.com/flask-django-independent-study/rookie-events-week-4
 pip3 install -r requirements.txt
 ```
 
-4. In your directory, check out the example database model in example.py.
+4. In your directory, check out the example database model in events_app/example.py.
 
 *What are some things that you notice about this model?*
 
@@ -158,16 +164,188 @@ if __name__ == "__main__":
 
 **Don't forget: every time we change our database models we will STILL need to delete our database.db file before re-running our app. If you start running into issues where you don't think your insert or delete statements are working, and you know you've made some changes to your models, delete your database.db file and let your app recreate it for you before further debugging.**
 
+15. There are a few different things we're going to do with our new found database powers. I'm going to list them below so that you know where we're going with this application. I'm going to also include a demo video in your resources so that if you get stuck or aren't clear on our end goal, you can reference this.
+
+    1. We want to make sure that our guests are stored in our database, and not just in memory.
+    2. I want us to be able to create events, and store those in a database as well. We'll be displaying our events on our homepage for users to see.
+    3. After that, we're going to have an RSVP form for each event in our database, and keep track of which guests are going to which event. This means that we're going to have to dive into relationships, which are arguably the most important part of SQL databases.
+    4. I want users to be able to click an event on the homepage and access the RSVP form for it. There are lots of stretch challenges that could be involved in this (like creating a **modal** to display the form on the homepage) but for now, we'll just make events link to the RSVP page.
+    5. I want us to be able to edit and delete events that we've created. When we get into user authentication and roles, we'll make sure only an admin user can add, edit, and delete events. For now, though, everyone will have access to these features.
+
+    So, there are a few things we're going to need. We're going to need a Guests and an Events table in our database, so we'll need to write the corresponding models for these. We'll need to add some insert statements to our routes, and we're going to need to add some new routes to handle adding, editing and deleting events.
+
+    That's a lot of work to do, so let's get started!
+
+16. There are a lot of TODOs in our main/routes.py file. Let's get started. First, though, I think we should pay models.py a visit.
+
+In models.py, I want you to write two models using the example above. I'll give you the code snippets you'll need below if you need help, but try this on your own before comparing to mine so that you can practice thinking through these things and looking things up.
+
+Our Guest model is going to inherit from db.Model. This means that you'll need to add an import statement at the top of your file so that we can access the database object that we created as db. *Don't forget your docstrings*!
+
+```python
+from from events_app import db
+# We're also going to need one more for our joining table:
+from sqlalchemy.orm import backref
+```
+Our Guest model needs the following attributes:
+
+  1. an id: which will be an Integer type, and will be the primary key.
+  2. name: which will be a string. Make sure you pass a maximum number of characters, say, 55?
+  3. email: will also be a string. Same thing, probably 40 characters is enough, but you can deviate from this.
+  4. plus_one: will be a string (likely a name). Make sure you also put a cap on this, maybe the same as the name field. You can also set nullable=True on this one: it's not required that a guest brings a plus one. We'll want to be able to set this to None if they don't have one.
+  5. phone: this one is a bit weird. We don't really have a datatype for a phone number. But, since we aren't doing much with this data yet, let's just make it a string for now. It doesn't need to be more than 10-15 characters I believe (depending on the country you're in)
+  6. events attending will look like this: events_attending = db.relationship("Event", secondary="guest_event_link")
+
+  Events attending looks weird, right? This is because it defines a *relationship*. The biggest benefit to SQL databases versus No SQL databases is their ability to maintain *relationships* between different tables. Large, data-driven applications often use SQL databases because of this. No SQL databases like Mongo can have collections that reference each other: but it gets a bit tricky to keep track because No SQL databases are much less structured.
+
+  Because an event has many guests, and guests can RSVP to many events, we're going to have what is called a many-to-many relationship between the two. This means we're going to have to also have a third table that we won't do much with but that SQL needs to track out data. I'll help you write this because writing joining tables is tricky, but pay attention to the fields I add, and feel free to ask questions if I leave out any important information about what this is doing behind the scenes. I'll make sure to link lots of resources this week as well so that you can read more!
+
+Now, let's work on writing out Event model. None of the following attributes will be nullable.
+
+  1. id: This will be an Integer, and the primary key
+  2. title: this will be a String, maybe with up to 90 characters?
+  3. description: this will also be a String, let's keep it Tweet length: 140 characters
+  4. date: this is going to be a DateTime object.
+  5. time: This is also going to be a DateTime object.
+  6. guests = db.relationship("Guest", secondary="guest_event_link")
 
 
+Great! Now you've got two database models. But we aren't done yet!
+
+17. Let's work on putting together our joining table. It's going to look like this:
+
+```python
+class GuestEventLink(db.Model):
+    """Joining table for guests & events."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    guest_id = db.Column(db.Integer, db.ForeignKey("guest.id"))
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+    event = db.relationship(
+        "Event", backref=backref("link", cascade="all, delete-orphan")
+    )
+    guest = db.relationship(
+        "Guest", backref=backref("link", cascade="all, delete-orphan")
+    )
+```
+
+You'll notice a few things about this table. First, you'll never instantiate this model as an object. This is a table that SQLAlchemy is going to handle for us behind the scenes.
+
+Second, it looks like each entry in this table has its own id, too. This is important. Every entry, or *row* in a SQL database is going to have a unique ID that SQL sets for us.
+
+Third, we're accessing our guest id and our event id as our *ForeignKey*. This term is referring to the fact that it's not the primary key for this record, but that it's accessing another table's ids to back reference its specific associated records!
+
+Lastly, we also have a db.relationship field for each table we're connected with. This is referencing the specific tables, and the "cascade" parameter is telling it that if we delete an event, for example, we also need to delete all references to the event from the guests that were attending. This avoids weird errors later if we try to access events from guests and those events no longer exist.
+
+18. *Spoiler* Below is the code from my models file, in case you run into any issues or just want to compare what you came up with to the way I wrote these. Remember: before we do anything else, every time you touch this file you're going to need to delete your database.db file and run your app again.
+
+I've included a `__repr__` method in mine. This defines what is returned if we print out or otherwise access objects instantiated from these. This is helpful when you try to print things - especially during debugging. If you don't have this, printing these objects will return a strange object that looks something like <This>.
+
+```python
+"""Create database models to represent tables."""
+from events_app import db
+from sqlalchemy.orm import backref
+
+
+class Guest(db.Model):
+    """Create Guest model."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(55), nullable=False)
+    email = db.Column(db.String(40), nullable=False)
+    plus_one = db.Column(db.String(55), nullable=True)
+    phone = db.Column(db.String(12), nullable=False)
+    events_attending = db.relationship("Event", secondary="guest_event_link")
+
+    def __repr__(self):
+        """Define how we want this to look when printed."""
+        return self.name
+
+
+class Event(db.Model):
+    """Create Event model."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(90), nullable=False)
+    description = db.Column(db.String(140), nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
+    guests = db.relationship("Guest", secondary="guest_event_link")
+
+    def __repr__(self):
+        """Define how we want this to look when printed."""
+        return self.title, self.description
+
+
+class GuestEventLink(db.Model):
+    """Joining table for guests & events."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    guest_id = db.Column(db.Integer, db.ForeignKey("guest.id"))
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+    event = db.relationship(
+        "Event", backref=backref("link", cascade="all, delete-orphan")
+    )
+    guest = db.relationship(
+        "Guest", backref=backref("link", cascade="all, delete-orphan")
+    )
+```
+
+19. In our routes now, we need to go through and finish our TODOs. I want to give you a few tips before we get started.
+
+To run a query in SQLAlchemy, we're going to write a line like this:
+
+```python
+# To access all items from a table:
+
+event = Event.query.all()
+
+# To filter by attribute (this can be ANY attribute, it doesn't have to be id)
+
+event = Event.query.filter_by(id=event_id).first()
+
+# Adding .first() just grabs the first entry that matches. This is optional, but I find it's clean and avoids
+# strange behavior if something went wrong adding items.
+```
+
+To update records, SQLAlchemy has abstracted things such that we're really just updating an object. So, if we want to update the title of an event, for example:
+
+```python
+event.title = new_title
+
+db.session.commit()
+```
+
+You'll notice I threw something new in there: `db.session.commit()`. SQLAlchemy recognizes sessions (behind the scenes, SQL does too) and the commit() method is the abstracted way of committing out changes to SQL without having to write raw SQL statements. Unlike NoSQL databases, SQL databases require such a commit statement every time a change is made. Similarly, when you're adding an item to your database, you'll need to run both .add(object) and .commit. For adding a new Guest, it will look like this:
+
+```python
+name = request.form.get('name')
+
+guest = Guest(name=name)
+
+db.session.add(guest)
+db.session.commit()
+```
+
+While there's a LOT of new things to learn here, it's all really pretty simple once you get into it.
+
+Lastly, if we want to delete something, say, an event:
+
+```python
+event = Event.query.filter_by(id=event_id).first()
+db.session.delete(event)
+db.session.commit()
+```
+
+Just that simple! We love ORMs.
+
+I'm going to let you go and work on completing the TODOs in the starting code now. If you have questions or get stuck, check out your resources. I've included a demo video that should help you understand where we're going with this. I've also done most of the templating and styling for you to save you some time. Feel free to make these unique and make improvements where you see opportunities to!
 
 ### Stretch Challenges:
 
-1. Create a form to dynamically add users or students from the client side. Use what you know about accessing items from forms to create your object.
+1. Our delete route kind of requires us to click a delete button. I'm lazy, and I don't like this. I feel like when the current date is past the date that the event occurred, this event should be automatically deleted. Add an if statement to your delete route to make this happen!
 
-2. Create a way to delete items from the front-end (for example, a button).
-
-3. Look into update statements, and create a way to update your students or users' names.
+2. As always, update the styling and make it fun!
 
 ### Submission:
 

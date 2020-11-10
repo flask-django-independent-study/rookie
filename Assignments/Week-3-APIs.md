@@ -62,7 +62,7 @@ pip install python-dotenv
 Then,
 
 ```zsh
-freeze > requirements.txt
+pip3 freeze > requirements.txt
 ```
 
 Remember, your API key can be found in your account dashboard on calendarific.

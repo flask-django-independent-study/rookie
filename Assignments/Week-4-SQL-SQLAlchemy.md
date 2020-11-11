@@ -68,7 +68,7 @@ SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
 
 This statement sets the database URI (the address of the database we're using) to a sqlite (testing) database, and we told it to create it at "database.db". This is an important environment variable that will tell SQLAlchemy where to insert and query for things. For now, database.db is going to be our database.
 
-8. You'll notice now at the top of app.py there is a TODO. We need to add this line:
+8. You'll notice now at the top of `__init__.py` there is a TODO. We need to add this line:
 
 ```python
 app.config.from_object(Config)

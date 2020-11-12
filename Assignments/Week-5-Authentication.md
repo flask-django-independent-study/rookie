@@ -56,7 +56,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 3. Next, let's navigate to our `__init__.py` file. We're going to need to add a new import statement, and a few more lines to get Flask-Login properly set up.
 
-Flask-Login uses a class called LoginManager to do some things behind the scenes. I won't get too deep into this, but I'll link the official Flask-Login docs in your resources.
+Flask-Login uses a class called LoginManager to do some things behind the scenes. I won't get too deep into this, but I'll link the official Flask-Login docs in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md).
 
 We're going to need to import LoginManager from flask_login. I trust that you all know how to write import statments by now, so I'm going to send you off on your own on this one.
 
@@ -168,9 +168,9 @@ Go back to your routes.py file, and scroll to find your user routes. The first r
 
     5. IF the passwords don't match (password and confirm password) we're going to want to show the user something
 
-Problem solving is a really important part of coding, so try using the logic I've laid out and the existing if statements to code this out. If you get really stuck, use your resources or do some Googling.
+Problem solving is a really important part of coding, so try using the logic I've laid out and the existing if statements to code this out. If you get really stuck, use your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md) or do some Googling.
 
-If you're completely lost, my completed source code is linked in your resources, but my hope is that you're able to use the TODOs and groundwork I've given you to begin to solve some of these things more independently!
+If you're completely lost, my completed source code is linked in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md), but my hope is that you're able to use the TODOs and groundwork I've given you to begin to solve some of these things more independently!
 
 11. Try testing your signup route! It's okay if it doesn't get from start to finish without throwing an error! My login flow redirects the user to the log in page. If you utilize this flow, then you can test through to the redirect to the log in page, and know that you're ready for the next step.
 
@@ -224,7 +224,7 @@ If you're completely lost, my completed source code is linked in your resources,
 
     1. In your logout route, write out the code to log out the user.
 
-    2. HINT: this is so easy: Flask-Login gives us another function for this. See if you can look in your resources and figure out what it is. Make sure you import this function at the top!
+    2. HINT: this is so easy: Flask-Login gives us another function for this. See if you can look in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md) and figure out what it is. Make sure you import this function at the top!
 
     3. Provide a redirect to the home page once the user is logged out.
 
@@ -306,7 +306,7 @@ The **function being decorated** is what we call our **view function** or our ro
 
 **So what does this decorator thing do?** In this example, this decorator is accessing our Flask object's route method and telling the function we declare below it (the view function, let's start understanding this terminology) to ONLY execute *when we access that route*. This is why we don't have to explicitly *call* view functions like we do other types of functions. This is what makes them so special.
 
-As you've already seen, *not all decorators have to do with server code*. We've also been using another special decorator throughout this assignment, the `@login_required` decorator. What this decorator does is it tells the function below it that it isn't allowed to execute unless the current_user object that Flask tracks has an is_authenticated property set to true. You can read more about this in your resources, but the code used to create this decorator is actually really simple.
+As you've already seen, *not all decorators have to do with server code*. We've also been using another special decorator throughout this assignment, the `@login_required` decorator. What this decorator does is it tells the function below it that it isn't allowed to execute unless the current_user object that Flask tracks has an is_authenticated property set to true. You can read more about this in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md), but the code used to create this decorator is actually really simple.
 
 This brings us to our next task: we're going to actually implement this code ourselves and write an `@admin_required` decorator that works MUCH like the `@login_required` decorator does. This will give us a solid understanding of how to write a decorator, what the Flask decorators are doing, and why we might use these in our code.
 

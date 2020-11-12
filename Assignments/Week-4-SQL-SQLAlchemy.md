@@ -62,11 +62,13 @@ We're going to be using models like this to represent tables in our database. Bu
 
 7. You're going to need to add something to your .env file, since I'm following best practices, and not pushing mine to Github. While our SQLite URI isn't secret, we're going to start using best practices for setup right off the bat. Production database URIs and URLs will contain information you *don't* want shared. For this reason, we're going to hide our database URI environment variable and then access it from our Config file.
 
-```python
-SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+```
+SQLALCHEMY_DATABASE_URI=sqlite:///database.db
 ```
 
 This statement sets the database URI (the address of the database we're using) to a sqlite (testing) database, and we told it to create it at "database.db". This is an important environment variable that will tell SQLAlchemy where to insert and query for things. For now, database.db is going to be our database.
+
+I've included the statement in our config.py file that we need to access this variable. You can check it out to see how it's done. We access SQLALCHEMY_DATABASE_URI from our .env file the same way we did with out API_KEY, but now these have both been moved into our config.py file rather than remaining at the top of our routes.
 
 8. You'll notice now at the top of `__init__.py` there is a TODO. We need to add this line:
 
@@ -88,7 +90,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
 ```
 
-9. We're going to need to create our database now. Below, I'm going to teach you a way of creating it that is less than ideal. Then, I'm going to teach you an easier way in a moment. I feel like it's important for you to understand first what's happening behind the scenes, and then abstracting things from there.
+9. We're going to try out creating our database now! Below, I'm going to teach you a way of creating it that is less than ideal. Then, I'm going to teach you an easier way in a moment. I feel like it's important for you to understand first what's happening behind the scenes, and then abstracting things from there.
 
 
 10. Once you've gotten that done, go to your terminal and make sure you're in the project directory. In your terminal, run:
@@ -107,8 +109,10 @@ Indicating that python is able to take commands.
 Run the following:
 
 ```zsh
-from app import db
+from events_app import db
 ```
+
+The reason that we run the above line is that we initialize our SQLAlchemy object (which we refer to as our database or db) in our `__init__.py` file in our events_app folder, or package. This will make more sense when we talk about blueprints and packages!
 
 Then:
 
@@ -118,13 +122,13 @@ db.create_all()
 
 You should see a file called database.db appear on the left hand side of your screen. Great job!
 
-*If you get an error in your terminal that says "AttributeError: 'NoneType' object has no attribute 'drivername'", use command + d to exit the python editor and run the following:*
+*If you get an error in your terminal that says "AttributeError: 'NoneType' object has no attribute 'drivername'", use command + d or exit() to exit the python editor and run the following:*
 
 ```zsh
 export SQLALCHEMY_DATABASE_URI=sqlite:///database.db
 ```
 
-*The reason you're getting this error is because we set the database URI and then never ran our app.py file: meaning the code we wrote to access this URI and pass it to our database was never executed. You'll encounter this error from time to time if you change your URI, move it, or update your Config file occaisionally and then try to create your database without running your app first. It can be a tricky error to debug, which is why I want to make sure you know what it means and what's going on.*
+*The reason you're getting this error is because we set the database URI and then never ran our app.py file: meaning the code we wrote to access this URI and pass it to our database was never executed. You'll encounter this error from time to time if you change your URI, move it, or update your Config file and then try to create your database without running your app first. It can be a tricky error to debug, which is why I want to make sure you know what it means and what's going on.*
 
 11. Now, here's the annoying thing about SQL: every time you change the database models, you're going to need to re-create the database. To do this, do the following:
 
@@ -142,7 +146,7 @@ Indicating that python is able to take commands.
 Run the following:
 
 ```zsh
-from app import db
+from events_app import db
 ```
 
 Then drop the current database:
@@ -169,6 +173,15 @@ if __name__ == "__main__":
         db.create_all()
     app.run(debug=True)
 ```
+
+Alternatively, you can add the following lines to the very bottom of your `__init__.py` file:
+
+```python
+with app.app_context():
+  db.create_all()
+```
+
+Both work exactly the same way, and it really doesn't make a difference which one you run.
 
 **Don't forget: every time we change our database models we will STILL need to delete our database.db file before re-running our app. If you start running into issues where you don't think your insert or delete statements are working, and you know you've made some changes to your models, delete your database.db file and let your app recreate it for you before further debugging.**
 

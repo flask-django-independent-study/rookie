@@ -23,7 +23,7 @@ You don't need to worry too much about what Flask-Login is doing behind the scen
 First, you're going to want to clone the starter code:
 
 ```zsh
-git clone https://github.com/flask-django-independent-study/rookie-events-week-5/blob/main/events_app/main/routes.py
+git clone https://github.com/flask-django-independent-study/rookie-events-week-5
 ```
 
 **Next, don't forget to set up and activate your virtual environment (see previous assignments if you don't remember how to do this).** You're then going to want to run:
@@ -154,7 +154,7 @@ There is nothing in our template to filter for a current authenticated user, bec
 
 *Before we get into our routes, I want us to learn about a super handy Flask tool that we haven't learned yet. It's called the flash() method. It's similar to the alert() method in vanilla Javascript if you're familiar. Instead of a browser popup box, though, it appends something to the DOM. Check out our base template: I've already implemented this for you. At the top of your routes file, add "flash" to the list of imports from flask if it isn't already there. Then, you can show something to the user by calling flash("message I want to show")*
 
-10. The answer to the above question is no, and now that we've fleshed out the rest of our code in our templates, we can turn our attention back to our routes to learn why!
+10. The answer to the above question is below, and now that we've fleshed out the rest of our code in our templates, we can turn our attention back to our routes to figure this out!
 
 Go back to your routes.py file, and scroll to find your user routes. The first route we're going to look at is our register route. I've given you some if statements to get you started, and I'll outline the logic that we're going to need to step through here to get you started.
 
@@ -172,7 +172,7 @@ Problem solving is a really important part of coding, so try using the logic I'v
 
 If you're completely lost, my completed source code is linked in your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-5.md), but my hope is that you're able to use the TODOs and groundwork I've given you to begin to solve some of these things more independently!
 
-11. Try testing your signup route! It's okay if it doesn't get from start to finish without throwing an error! My login flow redirects the user to the log in page. If you utilize this flow, then you can test through to the redirect to the log in page, and know that you're ready for the next step.
+11. Try testing your signup route! You won't be able to go through the whole login flow without throwing errors, because we've only written the logic for signing up so far! My registration flow redirects the user to the log in page. If you utilize this flow, then you can test your register form and route and get to the redirect to the log in page. If that works, you'll know you're ready for the next step.
 
 12. Next, we're going to need to work on our login route. I'll step through the logic with you here, too, and send you to mostly do this on your own!
 
@@ -238,7 +238,7 @@ We're going to be employing something called *hashing* which is a type of encryp
 
 First, we're going to need to ensure that we have a few things installed, and that we make a few import statements to access a library called *passlib*. Then, we're going to make some changes to our model, register, and login routes to make sure that we're storing and verifying hashed passwords instead of plaintext ones.
 
-18. Check your requirements.txt file and make sure there is an entry called "passlib". If there is not, go to your terminal and run the following:
+18. Check your requirements.txt file and make sure there is an entry called "passlib". If there is **not**, go to your terminal and run the following:
 
 ```zsh
 pip3 install passlib

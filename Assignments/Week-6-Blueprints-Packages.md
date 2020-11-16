@@ -68,7 +68,7 @@ We can eliminate TONS of confusion and scrolling up and down in our code editor 
 
 Let's get started!
 
-If you haven't already, check out your [resources](). We've linked great resources for blueprints and packages there. Once you feel ready, get back here and complete the following TODOs:
+If you haven't already, check out your [resources](https://github.com/flask-django-independent-study/rookie/blob/master/Resources/Week-6.md). We've linked great resources for blueprints and packages there. Once you feel ready, get back here and complete the following TODOs:
 
 1. We're going to need to add a few new folders and files to our application. This week we won't be cloning into a new repository, instead we're just building on our finished application from last week. If you haven't finished weeks 4 or 5, you'll need to go back and complete these assignments before working on this one.
 
@@ -221,7 +221,7 @@ Make sure to double check all of our redirects as well. Anywhere you use url_for
 
 ### Wrap Up:
 
-I want you to try to complete as much of this week as possible on your own. Because I know refactoring can be a pain and that sometimes hearing and seeing things is much more helpful than just reading, I've included [this video]() - it's a full walk-through you can follow along with to check or work or get un-stuck if you need it.
+I want you to try to complete as much of this week as possible on your own. Because I know refactoring can be a pain and that sometimes hearing and seeing things is much more helpful than just reading, I've included [this video](https://drive.google.com/file/d/17FfRQc5szAxV4ljlYwCxnDtqwnWqruel/view?usp=sharing) - it's a full walk-through you can follow along with to check or work or get un-stuck if you need it.
 
 *I made one error when I was walking through, where I said that this syntax*:
 

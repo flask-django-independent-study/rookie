@@ -38,7 +38,7 @@ Week | Topic | Due
 3 | [API's](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-3-APIs.md) | November 6
 4 | [SQL & SQLAlchemy](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-4-SQL-SQLAlchemy.md) | November 13
 5 | [Login & Authentication](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-5-Authentication.md) | November 20
-6 | Blueprints & Packages | November 27
+6 | [Blueprints & Packages](https://github.com/flask-django-independent-study/rookie/blob/master/Assignments/Week-6-Blueprints-Packages.md) | November 27
 7 | Building a REST API | December 4
 
 #### FINALS WEEK OFF

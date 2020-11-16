@@ -195,6 +195,19 @@ Then, it's calling register_blueprint() on our app, taking our new blueprint nam
 
 That's it! You've successfully refactored your admin routes. Now, I want you to repeat these steps for user and holidays, paying special attention to utility functions and helper variables that we're going to want to sandbox intuitively with their corresponding routes.
 
+    - user routes:
+        - login
+        - register
+        - user (dummy profile page)
+    - holidays:
+        - holidays (about_page)
+
+When you're working through this, pay special attention to variables and helper functions you may need for the given routes.
+
+**Make sure that your routes.py files ONLY have routes & view functions in them**
+
+All other global variables or functions that aren't view functions should be in the utils.py file for that folder.
+
 A good practice is, once you've refactored one chunk into its own folder and files, run your app and do some testing. Debug before moving on. If you refactor everything at once, it's a much longer process to debug and figure out where issues are.
 
 5. One really important last step is to go through and make sure that we're properly referencing all of our routes in our redirects and in our templates. If you get an error that says "Cannot build url enpoint for...." that means that somewhere in your code you're improperly referencing a view function.
@@ -205,11 +218,18 @@ Make sure to double check all of our redirects as well. Anywhere you use url_for
 
 6. Lastly, you're going to run into a few naming errors. Once you name your blueprints user and admin, our view functions that are just called 'user' and 'admin', respectively, are going to need to change. I simply changed mine to 'user_page' and 'admin_page' so that my blueprints and folders could have the most intuitive names possible.
 
-If you run into problems with things running, check these few things:
 
-Make sure that in each folder, you're starting your routes with "/blueprintname/routename" - OR that you're adding URL prefixes when you register your blueprints (this is a stretch challenge, if you don't know what this means or how to do this, don't worry! (or Google))
-Check your file structure, the locations of your templates, and your resources. They're there for a reason! We trust that you guys mostly know what you're doing, you got this!
-If all else fails, we'll be hosting office hours each week to help debug and check things out. You can Slack us anytime with questions and we'll get back to you as soon as we can.
+### Wrap Up:
+
+I want you to try to complete as much of this week as possible on your own. Because I know refactoring can be a pain and that sometimes hearing and seeing things is much more helpful than just reading, I've included [this video]() - it's a full walk-through you can follow along with to check or work or get un-stuck if you need it.
+
+*I made one error when I was walking through, where I said that this syntax*:
+
+```python
+from events_app.folder.file import function
+```
+
+*syntax is specific to Flask - that's not true, it's totally a Python thing and I misspoke.*
 
 Here are some FAQ's that hopefully help as well:
 
